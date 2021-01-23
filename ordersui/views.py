@@ -21,3 +21,16 @@ def login(request):
         return render(request, 'home.html')
     else:
         return HttpResponse("invalid request")
+
+def order(request):
+    print("calling order page")
+    return render(request, 'order.html')
+
+@csrf_exempt
+def createOrder(request):
+    print("Creating order")
+    if request.method == 'POST':
+        #Save order detail in db and then give success
+        return render(request, 'orderCreateSuccess.html')
+    else:
+        return HttpResponse("invalid order create request")

@@ -2,6 +2,8 @@
 <body>
     <h3>All Products</h3>
     <p>This is product page.</p>
-    <p>{{ pro }}</p>
+    {% for pr in pro %}
+    <p>{{ pr.name}}</p>
+    {% endfor %}
 </body>
 </html>

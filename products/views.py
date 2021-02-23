@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from client import allClient
+from client import productClient
 import json
 
 # Create your views here.
@@ -9,7 +10,8 @@ def product(request):
 
 def allProducts(request):
     print("came inside all product")
-    apiResponse = allClient.callApi()
+    #apiResponse = allClient.callApi()
+    apiResponse = productClient.getAllProducts()
     jres = apiResponse.content
     values = json.loads(jres)
     va = values["data"]

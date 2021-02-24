@@ -1,4 +1,5 @@
 import requests
+import os
 from django.http import HttpResponse
 from django.conf import settings
 
@@ -6,7 +7,9 @@ class ProductClient:
     global host
     def __init__(self):
         global host
-        if settings.PRODUCT_HOST == "":
+        if os.getenv("PRODUCT_HOST") != "":
+            host = os.getenv("PRODUCT_HOST")
+        elif settings.PRODUCT_HOST == "":
             host = "http://google.com"
         else:
             host = settings.PRODUCT_HOST

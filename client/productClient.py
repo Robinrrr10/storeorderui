@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.conf import settings
 
 class ProductClient:
-    host = ""
+    global host
     def __init__(self):
         global host
         if settings.PRODUCT_HOST == "":
@@ -14,7 +14,9 @@ class ProductClient:
     def getAllProducts(self):
         global host
         print("Call all products api")
-        response = requests.get( host + "/productmanagement/v1/products/all")
+        fullUrl =  host + "/productmanagement/v1/products/all"
+        print("url is:" + fullUrl)
+        response = requests.get(fullUrl)
         print(response.content)
         return response
 

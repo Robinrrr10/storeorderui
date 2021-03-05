@@ -1,5 +1,7 @@
 import os
+import requests
 from django.conf import settings
+from entities import order.OrderDetail
 
 class OrderClient:
     global host
@@ -11,3 +13,17 @@ class OrderClient:
             host = settings.ORDER_MANAGEMENT_HOST
         else:
             host = "http://google.com"
+
+    def getAllOrders(self, string storeId):
+        global host
+        print("Get all orders")
+        fullUrl = host + "/store/"+storeId+"/order/all"
+        response = requests.get(fullUrl)
+        print(response.content)
+        return response
+    
+    def createOrder(self, OrderDetail orderDetail):
+        global host
+        print("Create new order")
+        fullUrl = host + "/store/"+storeId+"/order"
+        

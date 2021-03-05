@@ -120,3 +120,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 PRODUCT_HOST = 'http://localhost:8080'
+ORDER_MANAGEMENT_HOST = 'http://localhost:8081'

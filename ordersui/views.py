@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+#from client.orderClient import
+from . import form
 
 # Create your views here.
 
@@ -31,6 +33,12 @@ def createOrder(request):
     print("Creating order")
     if request.method == 'POST':
         #Save order detail in db and then give success
+        orderForm = form.OrderForm(request.POST)
+        if orderForm.is_valid():
+            customer = orderForm.cleaned_data['cus']
+            print('customer' + customer)
+        else:
+             print('for is not value')
         return render(request, 'orderCreateSuccess.html')
     else:
         return HttpResponse("invalid order create request")

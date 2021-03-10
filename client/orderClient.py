@@ -1,29 +1,43 @@
 import os
+import json
 import requests
 from django.conf import settings
-from entities import order.OrderDetail
+from entities.order import OrderDetail
 
 class OrderClient:
-    global host
-    def __int__(self):
-        global host
-        if os.getenv("ORDER_MANAGEMENT_HOST") != "":
-            host = os.getenv("ORDER_MANAGEMENT_HOST")
-        elif settings.ORDER_MANAGEMENT_HOST != "":
-            host = settings.ORDER_MANAGEMENT_HOST
+    global orderhost
+    def __init__(self):
+        global orderhost
+        print("came to constuctor2")
+        if os.getenv("ORDER_MANAGEMENT_HOST") != None and os.getenv("ORDER_MANAGEMENT_HOST") != "":
+            print(os.getenv("ORDER_MANAGEMENT_HOST"))
+            orderhost = os.getenv("ORDER_MANAGEMENT_HOST")
+            print("111")
+            print(orderhost)
+        elif settings.ORDER_MANAGEMENT_HOST != None and settings.ORDER_MANAGEMENT_HOST != "":
+            orderhost = settings.ORDER_MANAGEMENT_HOST
+            print("112")
         else:
-            host = "http://google.com"
+            orderhost = "http://google.com"
+            print("113")
+        print("host:" + orderhost)
 
-    def getAllOrders(self, string storeId):
-        global host
+    def getAllOrders(self, storeId):
+        global orderhost
         print("Get all orders")
-        fullUrl = host + "/store/"+storeId+"/order/all"
+        fullUrl = orderhost + "/store/"+storeId+"/order/all"
         response = requests.get(fullUrl)
         print(response.content)
         return response
     
-    def createOrder(self, OrderDetail orderDetail):
-        global host
+    def createOrder(self, storeId, orderDetail):
+        global orderhost
         print("Create new order")
-        fullUrl = host + "/store/"+storeId+"/order"
+        jsonStr = json.dumps(orderDetail.__dict__)
+        fullUrl = orderhost + "/store/"+storeId+"/order"
+        print("url:" + fullUrl)
+        print("body:" + jsonStr)
+        response = requests.post(fullUrl, data = jsonStr)
+        print(response.content)
+        return response
         

@@ -7,6 +7,7 @@ class ProductClient:
     global host
     def __init__(self):
         global host
+        print("came inside product constructor")
         if os.getenv("PRODUCT_HOST") != "":
             host = os.getenv("PRODUCT_HOST")
         elif settings.PRODUCT_HOST == "":

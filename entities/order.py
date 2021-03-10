@@ -1,8 +1,8 @@
 class OrderDetail:
-    int id
-    int storeId
-    int productId
-    string productName
-    float eachPrice
-    int quantity
-    float totalPrice
+    orderId = None
+    storeId = None
+    productId = None
+    productName = None
+    eachPrice = None
+    quantity = None
+    totalPrice = None

@@ -1,0 +1,16 @@
+appVersion: v1
+kind: Service
+metadata:
+     name: storeorder-ui-svc
+     labels:
+          app: storeorder-ui-app
+          tier: frontend
+spec:
+     type: NodePort
+     ports:
+          - nodePort: 31003
+            port: 8000
+            targetPort: 8000
+     selector:
+          app: storeorder-ui-app
+          tier: frontend

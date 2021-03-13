@@ -1,0 +1,28 @@
+appVersion: apps/v1
+kind: Deployment
+metadata:
+     name: storeorder-ui-deploy
+     labels:
+          app: storeorder-ui-app
+spec:
+     replicas: 1
+     selector:
+          matchLabels:
+               app: storeorder-ui-app
+               tier: frontend
+     template:
+          metadata:
+               labels:
+                    app: storeorder-ui-app
+                    tier: frontend
+          spec:
+               containers:
+                    - name: storeorder-ui-containers
+                      image: robinrrr10/storeorderui
+                      env:
+                           - name: "PRODUCT_HOST"
+                             value: "http://product-management-svc:7010"
+                           - name: "ORDER_MANAGEMENT_HOST"
+                             value: "http://order-management-svc:7012"
+                      ports:
+                           - containerPort: 8000   

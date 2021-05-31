@@ -1,18 +1,65 @@
 <!DOCTYPE html>
+<head>
+    <title>store - Order</title>
+    <script type="text/javascript">
+    function autoProductSug()
+    {
+        var items = ["headlight", "break wire", "chluch plate", "hook", "eye light", "head doom", "mirror", "break oil", "break shoe", "break foot"];
+        var elm = document.getElementById("prodi");
+        var elval = elm.value ;
+        var result = [];
+        var count = 0;
+        for(var i=0; i<items.length; i++){
+            if(items[i].startsWith(elval)){
+                result[count] = items[i]
+                console.log(result[count])
+                count++;
+            }
+        }
+
+        var datlis = document.getElementById("datalist");
+        var child = datlis.lastElementChild;
+        while(child){
+            datlis.removeChild(child);
+            child = datlis.lastElementChild;
+        }
+        
+        for(var k = 0; k < result.length; k++) {
+            if(elval!=result){
+            var opt = document.createElement("option");
+            opt.value = result[k];
+            document.getElementById("datalist").appendChild(opt);
+            }else{
+                document.getElementById("eprc").value = 23.50;
+                document.getElementById("qt").value = 1;
+                document.getElementById("prc").value = 1 * 23.50;
+            }
+        }
+    }
+
+    function calculatePrice()
+    {
+        var num = document.getElementById("qt").value;
+        document.getElementById("prc").value = num * 23.50;
+    }
+    </script>
+</head>
 <body>
     <h2>NEW ORDER</h2>
     <p>Please order here</p>
     <form method="POST" action="createOrder" enctype="multipart/form-data">
         Customer name:
-        <input type="text" name="cus" /><br/><br/>
+        <input type="text" name="cus" id="ccn" placeholder="default - no name" /><br/><br/>
         Product name:
-        <input type="text" name="prd" /><br/><br/>
+        <input type="text" oninput="autoProductSug()" list="datalist" name="prd" id="prodi" /><br/><br/>
+        <datalist id="datalist">
+        </datalist>
         Each price:
-        <input type="number" name="eachPrice" /><br/><br/>
+        <input type="number" step="any" name="eachPrice"  id="eprc"/><br/><br/>
         Quantity:
-        <input type="number" name="qty" /><br/><br/>
+        <input type="number" onchange="calculatePrice()" oninput="calculatePrice()" name="qty" id="qt" /><br/><br/>
         Price:
-        <input type="number" name="price" /><br/><br/>
+        <input type="number" step="any" name="price" id="prc" /><br/><br/>
         <input type="submit" value="Create Order"/>
     </form>
 </body>
